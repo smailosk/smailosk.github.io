@@ -1,8 +1,8 @@
 'use client'
 
-import { motion } from 'framer-motion'
+import { motion, AnimatePresence } from 'framer-motion'
 import { useState } from 'react'
-import { FiSend, FiCalendar, FiClock, FiVideo, FiCheck, FiAlertCircle, FiMail, FiMessageSquare, FiUser, FiBriefcase, FiDollarSign, FiFileText, FiCheckCircle } from 'react-icons/fi'
+import { FiSend, FiCalendar, FiClock, FiVideo, FiCheck, FiAlertCircle, FiMail, FiMessageSquare, FiUser, FiBriefcase, FiDollarSign, FiFileText, FiCheckCircle, FiX } from 'react-icons/fi'
 
 export default function ContactSection() {
   const [formData, setFormData] = useState({
@@ -16,6 +16,7 @@ export default function ContactSection() {
   
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle')
+  const [showCalendarModal, setShowCalendarModal] = useState(false)
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     setFormData(prev => ({
@@ -60,8 +61,8 @@ export default function ContactSection() {
     }
   }
 
-  // Calendly link - replace with your actual Calendly URL
-  const calendlyUrl = "https://calendly.com/ismailamor/15min"
+  // Google Calendar URL
+  const googleCalendarUrl = "https://calendar.google.com/calendar/appointments/schedules/AcZssZ3bxmXjmmahB-WRj4IwE_p3cXSXT-cuZQiq41eklfv1aEs7H4TqZY61p8VQ8aC20-tCDhyl5svG?gv=true"
   
   return (
     <section id="contact" className="section theme-bg">
@@ -320,17 +321,15 @@ export default function ContactSection() {
                     </div>
                   </div>
 
-                  <motion.a
-                    href={calendlyUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
+                  <motion.button
+                    onClick={() => setShowCalendarModal(true)}
                     className="w-full btn-outline flex items-center justify-center gap-2"
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
                   >
                     <FiCalendar className="w-4 h-4" />
                     Schedule a Call
-                  </motion.a>
+                  </motion.button>
                 </div>
 
                 {/* Current Availability */}
@@ -386,6 +385,66 @@ export default function ContactSection() {
           </div>
         </motion.div>
       </div>
+
+      {/* Google Calendar Modal */}
+      <AnimatePresence>
+        {showCalendarModal && (
+          <>
+            {/* Backdrop */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setShowCalendarModal(false)}
+              className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50"
+            />
+
+            {/* Modal */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95, y: 20 }}
+              transition={{ type: 'spring', duration: 0.5 }}
+              className="fixed inset-0 z-50 flex items-center justify-center p-4 pointer-events-none"
+            >
+              <div className="w-full max-w-5xl h-[90vh] theme-card rounded-2xl shadow-2xl pointer-events-auto flex flex-col">
+                {/* Header */}
+                <div className="flex items-center justify-between p-6 border-b theme-border">
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 bg-emerald-neon/10 rounded-full flex items-center justify-center">
+                      <FiCalendar className="w-5 h-5 text-emerald-neon" />
+                    </div>
+                    <div>
+                      <h2 className="text-2xl font-bold theme-text">Schedule Your Free Consultation</h2>
+                      <p className="text-sm theme-text-secondary mt-1">Book a 30-minute call to discuss your Flutter project</p>
+                    </div>
+                  </div>
+                  <button
+                    onClick={() => setShowCalendarModal(false)}
+                    className="p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors"
+                    aria-label="Close modal"
+                  >
+                    <FiX className="w-6 h-6 theme-text" />
+                  </button>
+                </div>
+
+                {/* Google Calendar iframe */}
+                <div className="flex-1 p-4 overflow-hidden">
+                  <iframe 
+                    src={googleCalendarUrl}
+                    style={{ border: 0 }}
+                    width="100%"
+                    height="100%"
+                    frameBorder="0"
+                    className="rounded-lg"
+                    title="Google Calendar Appointment Scheduling"
+                  />
+                </div>
+              </div>
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
     </section>
   )
 }
