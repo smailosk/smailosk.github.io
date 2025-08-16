@@ -385,31 +385,31 @@ export default function ContactSection() {
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 20 }}
               transition={{ type: 'spring', duration: 0.5 }}
-              className="fixed inset-0 z-50 flex items-center justify-center p-4 pointer-events-none"
+              className="fixed inset-0 z-50 flex items-center justify-center md:p-4 pointer-events-none"
             >
-              <div className="w-full max-w-3xl h-[70vh] theme-card rounded-2xl shadow-2xl pointer-events-auto flex flex-col">
+              <div className="w-full md:max-w-3xl h-full md:h-[70vh] theme-card md:rounded-2xl shadow-2xl pointer-events-auto flex flex-col">
                 {/* Header */}
-                <div className="flex items-center justify-between p-6 border-b theme-border">
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 bg-emerald-neon/10 rounded-full flex items-center justify-center">
-                      <FiCalendar className="w-5 h-5 text-emerald-neon" />
+                <div className="flex items-center justify-between p-4 md:p-6 border-b theme-border">
+                  <div className="flex items-center gap-2 md:gap-3 flex-1">
+                    <div className="w-8 h-8 md:w-10 md:h-10 bg-emerald-neon/10 rounded-full flex items-center justify-center flex-shrink-0">
+                      <FiCalendar className="w-4 h-4 md:w-5 md:h-5 text-emerald-neon" />
                     </div>
-                    <div>
-                      <h2 className="text-2xl font-bold theme-text">Schedule Your Free Consultation</h2>
-                      <p className="text-sm theme-text-secondary mt-1">Book a 15-minute call to discuss your Flutter project</p>
+                    <div className="min-w-0 flex-1">
+                      <h2 className="text-lg md:text-2xl font-bold theme-text truncate">Schedule Consultation</h2>
+                      <p className="text-xs md:text-sm theme-text-secondary mt-0.5 md:mt-1 hidden sm:block">Book a 15-minute call to discuss your Flutter project</p>
                     </div>
                   </div>
                   <button
                     onClick={() => setShowCalendarModal(false)}
-                    className="p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors"
+                    className="p-1.5 md:p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors ml-2"
                     aria-label="Close modal"
                   >
-                    <FiX className="w-6 h-6 theme-text" />
+                    <FiX className="w-5 h-5 md:w-6 md:h-6 theme-text" />
                   </button>
                 </div>
 
                 {/* Google Calendar iframe */}
-                <div className="flex-1 p-4 overflow-hidden relative">
+                <div className="flex-1 p-2 md:p-4 overflow-hidden relative">
                   <div className="absolute inset-0 overflow-hidden">
                     <iframe 
                       src={googleCalendarUrl}
