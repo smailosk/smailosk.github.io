@@ -107,7 +107,7 @@ export default function HeroSection() {
               </div>
             </motion.div>
 
-            {/* Location Badges */}
+            {/* Location Badge */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -117,12 +117,6 @@ export default function HeroSection() {
               <span className="inline-flex items-center gap-2 px-4 py-2 bg-emerald-neon/10 border border-emerald-neon/30 rounded-full text-sm theme-text">
                 <FiMapPin className="w-4 h-4 text-emerald-neon" />
                 <span>🇩🇪 Germany</span>
-              </span>
-              <span className="inline-flex items-center gap-2 px-4 py-2 bg-emerald-neon/10 border border-emerald-neon/30 rounded-full text-sm theme-text">
-                <span>🇪🇺 EU Work Permit</span>
-              </span>
-              <span className="inline-flex items-center gap-2 px-4 py-2 bg-emerald-neon/10 border border-emerald-neon/30 rounded-full text-sm theme-text">
-                <span>Available for European Projects</span>
               </span>
             </motion.div>
 
@@ -205,15 +199,6 @@ export default function HeroSection() {
                 
                 {/* Overlay gradient */}
                 <div className="absolute inset-0 bg-gradient-to-t from-dark via-transparent to-transparent opacity-30 dark:opacity-60" />
-                
-                {/* Floating badge */}
-                <motion.div
-                  className="absolute bottom-4 right-4 bg-emerald-neon text-white px-4 py-2 rounded-full font-semibold text-sm"
-                  animate={{ y: [0, -10, 0] }}
-                  transition={{ duration: 2, repeat: Infinity }}
-                >
-                  Available for Work
-                </motion.div>
               </div>
 
               {/* Decorative elements */}
