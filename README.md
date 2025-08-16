@@ -97,4 +97,4 @@ All rights reserved © 2025 Ismail Amor
 
 ---
 
-Built with Next.js, TypeScript, and Tailwind CSS
+Built with Next.js, TypeScript, and Tailwind CSS | Deployed with GitHub Pages
