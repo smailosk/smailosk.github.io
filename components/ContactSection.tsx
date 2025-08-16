@@ -387,7 +387,7 @@ export default function ContactSection() {
               transition={{ type: 'spring', duration: 0.5 }}
               className="fixed inset-0 z-50 flex items-center justify-center md:p-4 pointer-events-none"
             >
-              <div className="w-full md:max-w-3xl h-full md:h-[70vh] theme-card md:rounded-2xl shadow-2xl pointer-events-auto flex flex-col">
+              <div className="w-full md:max-w-4xl lg:max-w-5xl h-full md:h-[85vh] theme-card md:rounded-2xl shadow-2xl pointer-events-auto flex flex-col">
                 {/* Header */}
                 <div className="flex items-center justify-between p-4 md:p-6 border-b theme-border">
                   <div className="flex items-center gap-2 md:gap-3 flex-1">
@@ -409,8 +409,8 @@ export default function ContactSection() {
                 </div>
 
                 {/* Google Calendar iframe */}
-                <div className="flex-1 p-2 md:p-4 overflow-hidden relative">
-                  <div className="absolute inset-0 overflow-hidden">
+                <div className="flex-1 p-2 md:p-4 overflow-hidden relative bg-white">
+                  <div className="absolute inset-0 overflow-hidden bg-white">
                     <iframe 
                       src={googleCalendarUrl}
                       style={{ 
@@ -420,7 +420,8 @@ export default function ContactSection() {
                         left: 0,
                         width: '100%',
                         height: 'calc(100% + 100px)',
-                        marginBottom: '-100px'
+                        marginBottom: '-100px',
+                        backgroundColor: 'white'
                       }}
                       frameBorder="0"
                       className="rounded-lg"
