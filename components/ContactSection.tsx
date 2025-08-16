@@ -61,8 +61,9 @@ export default function ContactSection() {
     }
   }
 
-  // Google Calendar URL
-  const googleCalendarUrl = "https://calendar.google.com/calendar/appointments/schedules/AcZssZ3bxmXjmmahB-WRj4IwE_p3cXSXT-cuZQiq41eklfv1aEs7H4TqZY61p8VQ8aC20-tCDhyl5svG?gv=true"
+  // Google Calendar URL with theme support
+  const isDarkMode = typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+  const googleCalendarUrl = `https://calendar.google.com/calendar/appointments/schedules/AcZssZ3bxmXjmmahB-WRj4IwE_p3cXSXT-cuZQiq41eklfv1aEs7H4TqZY61p8VQ8aC20-tCDhyl5svG?gv=true&color=%231DB26A`
   
   return (
     <section id="contact" className="section theme-bg">
@@ -385,9 +386,9 @@ export default function ContactSection() {
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 20 }}
               transition={{ type: 'spring', duration: 0.5 }}
-              className="fixed inset-0 z-50 flex items-center justify-center md:p-4 pointer-events-none"
+              className="fixed inset-0 z-50 flex items-center justify-center md:p-6 lg:p-8 pointer-events-none"
             >
-              <div className="w-full md:max-w-4xl lg:max-w-5xl h-full md:h-[85vh] theme-card md:rounded-2xl shadow-2xl pointer-events-auto flex flex-col">
+              <div className="w-full md:max-w-4xl lg:max-w-5xl xl:max-w-6xl h-full md:h-[calc(100vh-3rem)] lg:h-[calc(100vh-4rem)] theme-card md:rounded-2xl shadow-2xl pointer-events-auto flex flex-col">
                 {/* Header */}
                 <div className="flex items-center justify-between p-4 md:p-6 border-b theme-border">
                   <div className="flex items-center gap-2 md:gap-3 flex-1">
@@ -409,24 +410,26 @@ export default function ContactSection() {
                 </div>
 
                 {/* Google Calendar iframe */}
-                <div className="flex-1 p-2 md:p-4 overflow-hidden relative bg-white">
-                  <div className="absolute inset-0 overflow-hidden bg-white">
-                    <iframe 
-                      src={googleCalendarUrl}
-                      style={{ 
-                        border: 0,
-                        position: 'absolute',
-                        top: 0,
-                        left: 0,
-                        width: '100%',
-                        height: 'calc(100% + 100px)',
-                        marginBottom: '-100px',
-                        backgroundColor: 'white'
-                      }}
-                      frameBorder="0"
-                      className="rounded-lg"
-                      title="Google Calendar Appointment Scheduling"
-                    />
+                <div className="flex-1 overflow-hidden relative bg-white dark:bg-gray-800">
+                  <div className="absolute inset-0 p-2 md:p-4">
+                    <div className="w-full h-full rounded-lg overflow-hidden bg-white relative">
+                      <iframe 
+                        src={googleCalendarUrl}
+                        style={{ 
+                          width: '100%',
+                          height: 'calc(100% + 120px)',
+                          border: 0,
+                          borderRadius: '8px',
+                          position: 'absolute',
+                          top: 0,
+                          left: 0,
+                          marginBottom: '-120px'
+                        }}
+                        frameBorder="0"
+                        title="Google Calendar Appointment Scheduling"
+                        allowFullScreen
+                      />
+                    </div>
                   </div>
                 </div>
               </div>
