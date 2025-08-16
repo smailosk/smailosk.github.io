@@ -4,7 +4,7 @@ Professional portfolio website showcasing my expertise in Flutter development an
 
 ## 🚀 Live Demo
 
-**[View Live Portfolio →](https://smailosk.github.io/portfolio/)**
+**[View Live Portfolio →](https://smailosk.github.io/)**
 
 ## 👨‍💻 About
 
@@ -83,7 +83,7 @@ To enable the contact form:
 
 The portfolio automatically deploys to GitHub Pages when you push to the main branch.
 
-**Live URL**: https://smailosk.github.io/portfolio/
+**Live URL**: https://smailosk.github.io/
 
 ## 📄 License
 
@@ -93,7 +93,7 @@ All rights reserved © 2025 Ismail Amor
 
 - **GitHub**: [github.com/smailosk](https://github.com/smailosk)
 - **LinkedIn**: [linkedin.com/in/ismail-amor](https://linkedin.com/in/ismail-amor)
-- **Portfolio**: [smailosk.github.io/portfolio](https://smailosk.github.io/portfolio/)
+- **Portfolio**: [smailosk.github.io](https://smailosk.github.io/)
 
 ---
 

@@ -1,14 +1,16 @@
 # 🚀 GitHub Pages Deployment Instructions
 
-Your portfolio is now on GitHub! Follow these steps to make it live:
+Your portfolio is ready for deployment! Follow these steps to make it live at smailosk.github.io:
 
 ## 📋 Steps to Enable GitHub Pages:
 
-### 1. Go to Your Repository Settings
-- Visit: https://github.com/smailosk/portfolio
-- Click on **"Settings"** tab (top right of the repo)
+### 1. Rename Your Repository (IMPORTANT!)
+- Visit: https://github.com/smailosk/portfolio/settings
+- In the "Repository name" field, change it from `portfolio` to `smailosk.github.io`
+- Click **"Rename"**
 
 ### 2. Enable GitHub Pages
+- Stay in Settings after renaming
 - Scroll down to **"Pages"** in the left sidebar
 - Under **"Build and deployment"**:
   - Source: Select **"GitHub Actions"**
@@ -20,7 +22,7 @@ Your portfolio is now on GitHub! Follow these steps to make it live:
 
 ### 4. Access Your Live Site
 Your portfolio will be available at:
-- 🌐 **https://smailosk.github.io/portfolio/**
+- 🌐 **https://smailosk.github.io/**
 
 ## 🔄 Automatic Updates
 Every time you push changes to the `main` branch, the site will automatically update!
