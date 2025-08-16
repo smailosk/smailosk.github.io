@@ -332,26 +332,6 @@ export default function ContactSection() {
                   </motion.button>
                 </div>
 
-                {/* Current Availability */}
-                <div className="theme-card rounded-2xl p-6 theme-border border">
-                  <h4 className="font-bold theme-text mb-4">Current Availability</h4>
-                  <div className="space-y-3">
-                    <div className="flex items-center gap-3">
-                      <span className="relative flex h-3 w-3">
-                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-neon opacity-75"></span>
-                        <span className="relative inline-flex rounded-full h-3 w-3 bg-emerald-neon"></span>
-                      </span>
-                      <span className="theme-text">Available for new projects</span>
-                    </div>
-                    <p className="theme-text-secondary text-sm">
-                      Response time: Within 24 hours
-                    </p>
-                    <p className="theme-text-secondary text-sm">
-                      Current capacity: 20 hours/week for freelance
-                    </p>
-                  </div>
-                </div>
-
                 {/* What to Expect */}
                 <div className="theme-card rounded-2xl p-6 theme-border border">
                   <h4 className="font-bold theme-text mb-4">What to Expect</h4>
@@ -407,7 +387,7 @@ export default function ContactSection() {
               transition={{ type: 'spring', duration: 0.5 }}
               className="fixed inset-0 z-50 flex items-center justify-center p-4 pointer-events-none"
             >
-              <div className="w-full max-w-5xl h-[90vh] theme-card rounded-2xl shadow-2xl pointer-events-auto flex flex-col">
+              <div className="w-full max-w-3xl h-[70vh] theme-card rounded-2xl shadow-2xl pointer-events-auto flex flex-col">
                 {/* Header */}
                 <div className="flex items-center justify-between p-6 border-b theme-border">
                   <div className="flex items-center gap-3">
@@ -416,7 +396,7 @@ export default function ContactSection() {
                     </div>
                     <div>
                       <h2 className="text-2xl font-bold theme-text">Schedule Your Free Consultation</h2>
-                      <p className="text-sm theme-text-secondary mt-1">Book a 30-minute call to discuss your Flutter project</p>
+                      <p className="text-sm theme-text-secondary mt-1">Book a 15-minute call to discuss your Flutter project</p>
                     </div>
                   </div>
                   <button
@@ -429,16 +409,24 @@ export default function ContactSection() {
                 </div>
 
                 {/* Google Calendar iframe */}
-                <div className="flex-1 p-4 overflow-hidden">
-                  <iframe 
-                    src={googleCalendarUrl}
-                    style={{ border: 0 }}
-                    width="100%"
-                    height="100%"
-                    frameBorder="0"
-                    className="rounded-lg"
-                    title="Google Calendar Appointment Scheduling"
-                  />
+                <div className="flex-1 p-4 overflow-hidden relative">
+                  <div className="absolute inset-0 overflow-hidden">
+                    <iframe 
+                      src={googleCalendarUrl}
+                      style={{ 
+                        border: 0,
+                        position: 'absolute',
+                        top: 0,
+                        left: 0,
+                        width: '100%',
+                        height: 'calc(100% + 100px)',
+                        marginBottom: '-100px'
+                      }}
+                      frameBorder="0"
+                      className="rounded-lg"
+                      title="Google Calendar Appointment Scheduling"
+                    />
+                  </div>
                 </div>
               </div>
             </motion.div>
