@@ -1,21 +1,25 @@
-# Ismail Amor - Portfolio V2
+# Ismail Amor - Flutter Developer Portfolio
 
-A clean, modern portfolio website built with Next.js 14, TypeScript, and Tailwind CSS. Features a minimalist design inspired by top developer portfolios.
-
-## 🎨 Design Features
-
-- **Clean & Minimal**: Inspired by Brittany Chiang and Lee Robinson
-- **Light/Dark Mode**: Automatic theme detection with manual toggle
-- **Gradient Accents**: Beautiful blue-to-purple gradients
-- **Glassmorphism**: Subtle glass effects on navigation
-- **Bento Grid**: Modern project showcase layout
-- **Smooth Animations**: Framer Motion throughout
-- **Fully Responsive**: Mobile-first design
+Professional portfolio website showcasing my expertise in Flutter development and cross-platform mobile applications.
 
 ## 🚀 Live Demo
 
-- **Version 1**: [http://localhost:3000](http://localhost:3000) - Dark theme with green accents
-- **Version 2**: [http://localhost:3001](http://localhost:3001) - Clean minimal with gradients
+**[View Live Portfolio →](https://smailosk.github.io/portfolio/)**
+
+## 👨‍💻 About
+
+I'm a Flutter Developer with 3+ years of experience building scalable mobile applications for healthcare and enterprise clients. Currently working at Famedly GmbH, developing Germany's first gematik-certified healthcare messenger.
+
+## ✨ Features
+
+- **Modern Design**: Clean, professional interface with emerald green accent colors
+- **Dark/Light Mode**: Automatic theme detection with manual toggle
+- **Fully Responsive**: Optimized for all devices (mobile, tablet, desktop)
+- **SEO Optimized**: Structured data, meta tags, and sitemap for Google ranking
+- **Fast Performance**: Optimized Core Web Vitals and lazy loading
+- **Smooth Animations**: Subtle animations using Framer Motion
+- **Contact Form**: Integrated contact system with Formspree
+- **Downloadable CV**: Direct CV download for recruiters
 
 ## 🛠️ Tech Stack
 
@@ -23,82 +27,74 @@ A clean, modern portfolio website built with Next.js 14, TypeScript, and Tailwin
 - **Language**: TypeScript
 - **Styling**: Tailwind CSS
 - **Animations**: Framer Motion
+- **Deployment**: GitHub Pages
+- **Form Handling**: Formspree
 - **Icons**: React Icons
-- **Font**: Inter
 
-## 📁 Key Differences from V1
+## 📱 Portfolio Sections
 
-| Feature | Version 1 | Version 2 |
-|---------|-----------|-----------|
-| **Theme** | Dark only with green | Light/Dark toggle |
-| **Colors** | Emerald green accent | Blue-purple gradients |
-| **Layout** | Dense sections | More whitespace |
-| **Typography** | Standard | Better hierarchy |
-| **Projects** | Cards grid | Bento grid layout |
-| **Navigation** | Standard | Glassmorphism |
-| **Experience** | Timeline | Tab navigation |
+1. **Hero**: Introduction with location badges and social links
+2. **About**: Professional summary and tech stack
+3. **Experience**: Complete work history timeline
+4. **Projects**: Featured projects with detailed descriptions
+5. **Skills**: Categorized technical skills with proficiency levels
+6. **Contact**: Professional contact form and booking options
 
 ## 🚀 Getting Started
 
+### Development
+
 ```bash
-# Development
+# Install dependencies
+npm install
+
+# Run development server
 npm run dev
 
-# Build
+# Open http://localhost:3000
+```
+
+### Build & Deploy
+
+```bash
+# Build for production
 npm run build
 
-# Production
+# Test production build locally
 npm run start
 ```
 
-## 📱 Sections
+## 🌍 SEO & Performance
 
-1. **Hero**: Clean intro with gradient text
-2. **About**: Personal story with tech stack
-3. **Experience**: Tabbed work history
-4. **Projects**: Bento grid showcase
-5. **Skills**: Categorized tech stack
-6. **Contact**: Simple CTA section
+- Optimized for European market (Germany, UK, Netherlands, France)
+- Structured data for rich Google snippets
+- Core Web Vitals optimized
+- Mobile-first responsive design
+- Multi-language meta tags
 
-## 🎯 Design Philosophy
+## 📧 Contact Setup
 
-- **Minimalism**: Less is more
-- **Readability**: Content first
-- **Performance**: Fast loading
-- **Accessibility**: WCAG compliant
-- **Professional**: Enterprise-ready
+To enable the contact form:
+1. Sign up at [Formspree](https://formspree.io)
+2. Create a new form
+3. Replace `YOUR_FORM_ID` in `ContactSection.tsx`
 
-## 🌐 Deployment
+## 🎯 Deployment
 
-### Vercel (Recommended)
-```bash
-vercel
-```
+The portfolio automatically deploys to GitHub Pages when you push to the main branch.
 
-### GitHub Pages
-```bash
-npm run build
-npm run export
-```
+**Live URL**: https://smailosk.github.io/portfolio/
 
-## 🔄 Switching Between Versions
+## 📄 License
 
-- **V1 (Dark/Green)**: `/MyApps/portfolio-ismail` → Port 3000
-- **V2 (Clean/Gradient)**: `/MyApps/portfolio-v2` → Port 3001
+All rights reserved © 2025 Ismail Amor
 
-## 📝 Customization
+## 🤝 Connect
 
-Edit the components in `/components` folder:
-- Colors: `tailwind.config.ts`
-- Content: Individual component files
-- Animations: Framer Motion in components
-
-## 🤝 Contact
-
-- **Email**: ismailamor93@gmail.com
-- **LinkedIn**: [linkedin.com/in/ismail-amor](https://linkedin.com/in/ismail-amor)
 - **GitHub**: [github.com/smailosk](https://github.com/smailosk)
+- **LinkedIn**: [linkedin.com/in/ismail-amor](https://linkedin.com/in/ismail-amor)
+- **Portfolio**: [smailosk.github.io/portfolio](https://smailosk.github.io/portfolio/)
 
 ---
 
-Built with ❤️ using Next.js and Tailwind CSS
+Built with Next.js, TypeScript, and Tailwind CSS
