@@ -1,9 +1,9 @@
 'use client'
 
 import { useState } from 'react'
-import { motion } from 'framer-motion'
+import { motion, AnimatePresence } from 'framer-motion'
 import Image from 'next/image'
-import { FiGithub, FiExternalLink, FiFolder, FiCode, FiSmartphone, FiMonitor, FiUsers, FiAward, FiShoppingCart, FiHeart } from 'react-icons/fi'
+import { FiGithub, FiExternalLink, FiFolder, FiCode, FiSmartphone, FiMonitor, FiUsers, FiAward, FiShoppingCart, FiHeart, FiX, FiPlay } from 'react-icons/fi'
 import { SiFlutter, SiFigma, SiFirebase, SiReact, SiShopify, SiDart, SiTypescript, SiJavascript, SiNodedotjs } from 'react-icons/si'
 
 const featuredProjects = [
@@ -17,6 +17,7 @@ const featuredProjects = [
     technologies: ['Flutter', 'Figma', 'Clean Architecture', 'BLoC', 'Firebase', 'UX/UI Design'],
     github: 'https://github.com/smailosk/task-flow',
     external: null,
+    figmaPrototype: 'https://www.figma.com/embed?embed_host=share&url=https%3A%2F%2Fwww.figma.com%2Fproto%2FNDmF0csWXO3rGo1P0EpZPC%2FPA-Task-Management-App%3Fpage-id%3D0%253A1%26node-id%3D5-5272%26p%3Df%26viewport%3D471%252C-450%252C0.1%26t%3DLvpDHXzQqGmAYC0h-1%26scaling%3Dmin-zoom%26content-scaling%3Dfixed',
     featured: true,
     category: 'Productivity',
     highlights: [
@@ -88,7 +89,7 @@ const otherProjects = [
 ]
 
 // Mock device frames for project showcases
-const PhoneMockup = ({ image, title }: { image: string, title: string }) => (
+const PhoneMockup = ({ image, title, projectId }: { image: string, title: string, projectId?: number }) => (
   <div className="relative mx-auto" style={{ width: '280px', height: '580px' }}>
     {/* Phone Frame */}
     <div className="absolute inset-0 bg-gray-900 rounded-[3rem] shadow-2xl">
@@ -99,12 +100,80 @@ const PhoneMockup = ({ image, title }: { image: string, title: string }) => (
           <div className="w-20 h-4 bg-black rounded-full" />
         </div>
         {/* Screen Content */}
-        <div className="absolute inset-0 top-6 bg-gradient-to-br from-emerald-500/20 to-blue-500/20 flex items-center justify-center">
-          <div className="text-center p-4">
-            <FiSmartphone className="w-16 h-16 text-emerald-neon mx-auto mb-4" />
-            <p className="text-white font-semibold">{title}</p>
-            <p className="text-gray-400 text-sm mt-2">Mobile App</p>
-          </div>
+        <div className="absolute inset-0 top-6">
+          {projectId === 1 ? (
+            // TaskFlow specific preview
+            <div className="h-full bg-gradient-to-b from-purple-600 to-pink-600 relative">
+              {/* App Header */}
+              <div className="bg-black/20 p-4">
+                <h3 className="text-white font-bold text-lg">TaskFlow</h3>
+                <p className="text-white/80 text-xs">Task Management App</p>
+              </div>
+              {/* Task Cards Preview */}
+              <div className="p-4 space-y-3">
+                <div className="bg-white/20 backdrop-blur rounded-lg p-3">
+                  <div className="flex items-center justify-between mb-2">
+                    <div className="w-3 h-3 bg-green-400 rounded-full"></div>
+                    <span className="text-white/60 text-xs">High Priority</span>
+                  </div>
+                  <div className="h-2 bg-white/40 rounded w-3/4 mb-1"></div>
+                  <div className="h-2 bg-white/30 rounded w-1/2"></div>
+                </div>
+                <div className="bg-white/20 backdrop-blur rounded-lg p-3">
+                  <div className="flex items-center justify-between mb-2">
+                    <div className="w-3 h-3 bg-yellow-400 rounded-full"></div>
+                    <span className="text-white/60 text-xs">In Progress</span>
+                  </div>
+                  <div className="h-2 bg-white/40 rounded w-2/3 mb-1"></div>
+                  <div className="h-2 bg-white/30 rounded w-3/4"></div>
+                </div>
+                <div className="bg-white/20 backdrop-blur rounded-lg p-3">
+                  <div className="flex items-center justify-between mb-2">
+                    <div className="w-3 h-3 bg-blue-400 rounded-full"></div>
+                    <span className="text-white/60 text-xs">Pending</span>
+                  </div>
+                  <div className="h-2 bg-white/40 rounded w-full mb-1"></div>
+                  <div className="h-2 bg-white/30 rounded w-2/3"></div>
+                </div>
+              </div>
+              {/* Bottom Navigation */}
+              <div className="absolute bottom-0 left-0 right-0 bg-black/30 p-3">
+                <div className="flex justify-around">
+                  <div className="w-6 h-6 bg-white/30 rounded"></div>
+                  <div className="w-6 h-6 bg-white/50 rounded"></div>
+                  <div className="w-6 h-6 bg-white/30 rounded"></div>
+                  <div className="w-6 h-6 bg-white/30 rounded"></div>
+                </div>
+              </div>
+              {/* Figma Logo Watermark */}
+              <div className="absolute top-4 right-4">
+                <SiFigma className="w-6 h-6 text-white/40" />
+              </div>
+            </div>
+          ) : projectId === 2 ? (
+            // Change4Charity specific preview
+            <div className="h-full bg-gradient-to-b from-green-600 to-teal-600 relative">
+              <div className="bg-black/20 p-4">
+                <h3 className="text-white font-bold text-lg">Change4Charity</h3>
+                <p className="text-white/80 text-xs">Break habits, help charities</p>
+              </div>
+              <div className="p-4 space-y-3">
+                <div className="bg-white/20 backdrop-blur rounded-lg p-3">
+                  <div className="h-2 bg-white/40 rounded w-3/4 mb-1"></div>
+                  <div className="h-2 bg-white/30 rounded w-1/2"></div>
+                </div>
+              </div>
+            </div>
+          ) : (
+            // Default preview
+            <div className="h-full bg-gradient-to-br from-emerald-500/20 to-blue-500/20 flex items-center justify-center">
+              <div className="text-center p-4">
+                <FiSmartphone className="w-16 h-16 text-emerald-neon mx-auto mb-4" />
+                <p className="text-white font-semibold">{title}</p>
+                <p className="text-gray-400 text-sm mt-2">Mobile App</p>
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </div>
@@ -144,6 +213,8 @@ const LaptopMockup = ({ image, title }: { image: string, title: string }) => (
 export default function ProjectsSection() {
   const [hoveredProject, setHoveredProject] = useState<number | null>(null)
   const [selectedCategory, setSelectedCategory] = useState('All')
+  const [showPrototypeModal, setShowPrototypeModal] = useState(false)
+  const [currentPrototype, setCurrentPrototype] = useState<string | null>(null)
 
   const categories = ['All', 'Productivity', 'Social Impact', 'E-Commerce', 'Design', 'Healthcare']
 
@@ -249,7 +320,7 @@ export default function ProjectsSection() {
                         </div>
 
                         {/* Links */}
-                        <div className="flex gap-4">
+                        <div className="flex gap-4 items-center">
                           {project.github && (
                             <motion.a
                               href={project.github}
@@ -258,6 +329,7 @@ export default function ProjectsSection() {
                               className="text-emerald-neon hover:text-emerald-500 transition-colors"
                               whileHover={{ y: -3 }}
                               whileTap={{ scale: 0.95 }}
+                              title="View Source Code"
                             >
                               <FiGithub className="w-6 h-6" />
                             </motion.a>
@@ -270,9 +342,25 @@ export default function ProjectsSection() {
                               className="text-emerald-neon hover:text-emerald-500 transition-colors"
                               whileHover={{ y: -3 }}
                               whileTap={{ scale: 0.95 }}
+                              title="View Live Site"
                             >
                               <FiExternalLink className="w-6 h-6" />
                             </motion.a>
+                          )}
+                          {(project as any).figmaPrototype && (
+                            <motion.button
+                              onClick={() => {
+                                setCurrentPrototype((project as any).figmaPrototype)
+                                setShowPrototypeModal(true)
+                              }}
+                              className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-lg font-medium hover:from-purple-700 hover:to-pink-700 transition-all shadow-lg hover:shadow-purple-500/25"
+                              whileHover={{ y: -3, scale: 1.02 }}
+                              whileTap={{ scale: 0.95 }}
+                            >
+                              <SiFigma className="w-4 h-4" />
+                              <span>View Figma Prototype</span>
+                              <FiExternalLink className="w-3 h-3 opacity-70" />
+                            </motion.button>
                           )}
                         </div>
                       </div>
@@ -294,7 +382,7 @@ export default function ProjectsSection() {
                       
                       {/* Mockup */}
                       {project.mockupType === 'phone' ? (
-                        <PhoneMockup image={project.image} title={project.title} />
+                        <PhoneMockup image={project.image} title={project.title} projectId={project.id} />
                       ) : (
                         <LaptopMockup image={project.image} title={project.title} />
                       )}
@@ -407,6 +495,87 @@ export default function ProjectsSection() {
           </motion.div>
         </motion.div>
       </div>
+
+      {/* Figma Prototype Modal */}
+      <AnimatePresence>
+        {showPrototypeModal && currentPrototype && (
+          <>
+            {/* Backdrop */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => {
+                setShowPrototypeModal(false)
+                setCurrentPrototype(null)
+              }}
+              className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50"
+            />
+
+            {/* Modal */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95, y: 20 }}
+              transition={{ type: 'spring', duration: 0.5 }}
+              className="fixed inset-0 z-50 flex items-center justify-center md:p-6 lg:p-8 pointer-events-none"
+            >
+              <div className="w-full md:max-w-6xl xl:max-w-7xl h-full md:h-[calc(100vh-3rem)] lg:h-[calc(100vh-4rem)] theme-card md:rounded-2xl shadow-2xl pointer-events-auto flex flex-col">
+                {/* Header */}
+                <div className="flex items-center justify-between p-4 md:p-6 border-b theme-border">
+                  <div className="flex items-center gap-2 md:gap-3">
+                    <div className="w-8 h-8 md:w-10 md:h-10 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full flex items-center justify-center">
+                      <SiFigma className="w-4 h-4 md:w-5 md:h-5 text-white" />
+                    </div>
+                    <div>
+                      <h2 className="text-lg md:text-2xl font-bold theme-text">TaskFlow Interactive Prototype</h2>
+                      <p className="text-xs md:text-sm theme-text-secondary mt-0.5">Navigate through the app design</p>
+                    </div>
+                  </div>
+                  <button
+                    onClick={() => {
+                      setShowPrototypeModal(false)
+                      setCurrentPrototype(null)
+                    }}
+                    className="p-1.5 md:p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors"
+                    aria-label="Close modal"
+                  >
+                    <FiX className="w-5 h-5 md:w-6 md:h-6 theme-text" />
+                  </button>
+                </div>
+
+                {/* Figma iframe */}
+                <div className="flex-1 overflow-hidden relative bg-gray-50 dark:bg-gray-900">
+                  <div className="absolute inset-0 p-2 md:p-4">
+                    <div className="w-full h-full rounded-lg overflow-hidden bg-white">
+                      <iframe 
+                        src={currentPrototype}
+                        style={{ 
+                          width: '100%',
+                          height: '100%',
+                          border: 0,
+                          borderRadius: '8px'
+                        }}
+                        frameBorder="0"
+                        title="TaskFlow Figma Prototype"
+                        allowFullScreen={true}
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                {/* Footer with instructions */}
+                <div className="p-4 border-t theme-border bg-gray-50 dark:bg-gray-900">
+                  <p className="text-sm theme-text-secondary text-center">
+                    💡 Click and drag to navigate • Press R to restart • Esc to close
+                  </p>
+                </div>
+              </div>
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
     </section>
   )
 }

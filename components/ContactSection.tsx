@@ -29,18 +29,29 @@ export default function ContactSection() {
     e.preventDefault()
     setIsSubmitting(true)
     
-    // Using Formspree (free tier available)
-    // Replace 'YOUR_FORM_ID' with your actual Formspree form ID
     try {
-      const response = await fetch('https://formspree.io/f/YOUR_FORM_ID', {
+      // Using Web3Forms - FREE and hides your email completely
+      // Your email is encrypted and never exposed in the code
+      const response = await fetch('https://api.web3forms.com/submit', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({
+          access_key: '666b2885-efc7-465b-9ccf-8d12ad8e86c1', // This is a public key - your email is hidden
+          name: formData.name,
+          email: formData.email,
+          company: formData.company,
+          project_type: formData.projectType,
+          budget: formData.budget,
+          message: formData.message,
+          subject: `New Project Inquiry from ${formData.name}`,
+        }),
       })
       
-      if (response.ok) {
+      const data = await response.json()
+      
+      if (data.success) {
         setSubmitStatus('success')
         setFormData({
           name: '',
@@ -54,6 +65,7 @@ export default function ContactSection() {
         setSubmitStatus('error')
       }
     } catch (error) {
+      console.error('Form submission error:', error)
       setSubmitStatus('error')
     } finally {
       setIsSubmitting(false)
