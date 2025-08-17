@@ -15,10 +15,13 @@ I'm a Flutter Developer with 3+ years of experience building scalable mobile app
 - **Modern Design**: Clean, professional interface with emerald green accent colors
 - **Dark/Light Mode**: Automatic theme detection with manual toggle
 - **Fully Responsive**: Optimized for all devices (mobile, tablet, desktop)
+- **Interactive Project Showcase**: Swipeable phone carousel with real app screens
+- **Figma Prototype Integration**: Live interactive prototypes embedded in modals
+- **Google Calendar Booking**: Integrated scheduling for consultation calls
 - **SEO Optimized**: Structured data, meta tags, and sitemap for Google ranking
-- **Fast Performance**: Optimized Core Web Vitals and lazy loading
+- **Fast Performance**: Optimized Core Web Vitals, lazy loading, and image optimization
 - **Smooth Animations**: Subtle animations using Framer Motion
-- **Contact Form**: Integrated contact system with Formspree
+- **Secure Contact Form**: Web3Forms integration with hidden email protection
 - **Downloadable CV**: Direct CV download for recruiters
 
 ## 🛠️ Tech Stack
@@ -28,17 +31,25 @@ I'm a Flutter Developer with 3+ years of experience building scalable mobile app
 - **Styling**: Tailwind CSS
 - **Animations**: Framer Motion
 - **Deployment**: GitHub Pages
-- **Form Handling**: Formspree
+- **Form Handling**: Web3Forms (secure, email hidden)
 - **Icons**: React Icons
+- **Calendar**: Google Calendar Integration
+- **Image Optimization**: Next.js Image with lazy loading
 
 ## 📱 Portfolio Sections
 
 1. **Hero**: Introduction with location badges and social links
 2. **About**: Professional summary and tech stack
 3. **Experience**: Complete work history timeline
-4. **Projects**: Featured projects with detailed descriptions
+4. **Projects**: 
+   - Interactive phone carousel showcasing TaskFlow app screens
+   - Figma prototype integration with live preview
+   - GitHub and demo links with enhanced UX
 5. **Skills**: Categorized technical skills with proficiency levels
-6. **Contact**: Professional contact form and booking options
+6. **Contact**: 
+   - Secure Web3Forms integration
+   - Google Calendar booking for 15-minute consultations
+   - Professional contact form with project details
 
 ## 🚀 Getting Started
 
@@ -74,10 +85,10 @@ npm run start
 
 ## 📧 Contact Setup
 
-To enable the contact form:
-1. Sign up at [Formspree](https://formspree.io)
-2. Create a new form
-3. Replace `YOUR_FORM_ID` in `ContactSection.tsx`
+The contact form uses Web3Forms for secure email handling:
+- Email address is completely hidden from the code
+- Spam protection built-in
+- No need to expose personal email publicly
 
 ## 🎯 Deployment
 
