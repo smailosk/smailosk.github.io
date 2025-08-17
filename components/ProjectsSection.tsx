@@ -3,8 +3,21 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import Image from 'next/image'
-import { FiGithub, FiExternalLink, FiFolder, FiCode, FiSmartphone, FiMonitor, FiUsers, FiAward, FiShoppingCart, FiHeart, FiX, FiPlay } from 'react-icons/fi'
+import { FiGithub, FiExternalLink, FiFolder, FiCode, FiSmartphone, FiMonitor, FiUsers, FiAward, FiShoppingCart, FiHeart, FiX, FiPlay, FiArrowUpRight, FiDownload } from 'react-icons/fi'
 import { SiFlutter, SiFigma, SiFirebase, SiReact, SiShopify, SiDart, SiTypescript, SiJavascript, SiNodedotjs } from 'react-icons/si'
+import DeviceMockupCarousel from './DeviceMockupCarousel'
+
+// TaskFlow app screens organized by user flow - showing key screens only
+const taskFlowScreens = [
+  // Key screens to showcase the app
+  { name: 'Start Screen', image: '/taskflow-screens/Start-Page.png', category: 'auth' as const },
+  { name: 'Login', image: '/taskflow-screens/Login-Page.png', category: 'auth' as const },
+  { name: 'Tasks Overview', image: '/taskflow-screens/Tasks-Page.png', category: 'main' as const },
+  { name: 'Projects', image: '/taskflow-screens/Project-Page.png', category: 'main' as const },
+  { name: 'Calendar View', image: '/taskflow-screens/Calendar-Page.png', category: 'main' as const },
+  { name: 'Add New Task', image: '/taskflow-screens/Add-New-Task-Page.png', category: 'task' as const },
+  { name: 'Profile', image: '/taskflow-screens/Profile-new-Page.png', category: 'profile' as const },
+]
 
 const featuredProjects = [
   {
@@ -18,6 +31,11 @@ const featuredProjects = [
     github: 'https://github.com/smailosk/task-flow',
     external: null,
     figmaPrototype: 'https://www.figma.com/embed?embed_host=share&url=https%3A%2F%2Fwww.figma.com%2Fproto%2FNDmF0csWXO3rGo1P0EpZPC%2FPA-Task-Management-App%3Fpage-id%3D0%253A1%26node-id%3D5-5272%26p%3Df%26viewport%3D471%252C-450%252C0.1%26t%3DLvpDHXzQqGmAYC0h-1%26scaling%3Dmin-zoom%26content-scaling%3Dfixed',
+    demoOptions: {
+      apk: 'https://github.com/smailosk/task-flow/releases',
+      testflight: null,
+      webDemo: null
+    },
     featured: true,
     category: 'Productivity',
     highlights: [
@@ -28,7 +46,8 @@ const featuredProjects = [
       'Gesture-based controls and smart notifications'
     ],
     color: 'from-purple-500 to-pink-500',
-    icon: <FiFolder className="w-6 h-6" />
+    icon: <FiFolder className="w-6 h-6" />,
+    screens: taskFlowScreens
   },
   {
     id: 2,
@@ -40,6 +59,11 @@ const featuredProjects = [
     technologies: ['Flutter', 'Firebase', 'Payment APIs', 'Figma', 'GitHub', 'Agile'],
     github: 'https://github.com/smailosk/change4charity',
     external: null,
+    demoOptions: {
+      apk: 'https://github.com/smailosk/change4charity/releases',
+      testflight: null,
+      webDemo: null
+    },
     featured: true,
     category: 'Social Impact',
     highlights: [
@@ -320,47 +344,51 @@ export default function ProjectsSection() {
                         </div>
 
                         {/* Links */}
-                        <div className="flex gap-4 items-center">
-                          {project.github && (
-                            <motion.a
-                              href={project.github}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="text-emerald-neon hover:text-emerald-500 transition-colors"
-                              whileHover={{ y: -3 }}
-                              whileTap={{ scale: 0.95 }}
-                              title="View Source Code"
-                            >
-                              <FiGithub className="w-6 h-6" />
-                            </motion.a>
-                          )}
-                          {project.external && (
-                            <motion.a
-                              href={project.external}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="text-emerald-neon hover:text-emerald-500 transition-colors"
-                              whileHover={{ y: -3 }}
-                              whileTap={{ scale: 0.95 }}
-                              title="View Live Site"
-                            >
-                              <FiExternalLink className="w-6 h-6" />
-                            </motion.a>
-                          )}
+                        <div className="flex gap-3 items-center">
+                          {/* Figma Prototype */}
                           {(project as any).figmaPrototype && (
                             <motion.button
                               onClick={() => {
                                 setCurrentPrototype((project as any).figmaPrototype)
                                 setShowPrototypeModal(true)
                               }}
-                              className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-lg font-medium hover:from-purple-700 hover:to-pink-700 transition-all shadow-lg hover:shadow-purple-500/25"
-                              whileHover={{ y: -3, scale: 1.02 }}
-                              whileTap={{ scale: 0.95 }}
+                              className="group flex items-center gap-2 px-4 py-2.5 bg-purple-100 dark:bg-gradient-to-r dark:from-purple-500/10 dark:to-pink-500/10 border border-purple-300 dark:border-purple-500/20 rounded-lg text-purple-700 dark:text-purple-400 hover:bg-purple-200 dark:hover:from-purple-500/20 dark:hover:to-pink-500/20 hover:text-purple-900 dark:hover:text-white hover:border-purple-400 dark:hover:border-purple-500/40 transition-all"
+                              whileHover={{ scale: 1.03 }}
+                              whileTap={{ scale: 0.98 }}
                             >
                               <SiFigma className="w-4 h-4" />
-                              <span>View Figma Prototype</span>
-                              <FiExternalLink className="w-3 h-3 opacity-70" />
+                              <span className="font-medium">Figma Prototype</span>
                             </motion.button>
+                          )}
+                          
+                          {/* GitHub */}
+                          {project.github && (
+                            <motion.a
+                              href={project.github}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="group flex items-center gap-2 px-4 py-2.5 bg-gray-100 dark:bg-gray-800/40 border border-gray-300 dark:border-gray-700/50 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-800/60 hover:text-gray-900 dark:hover:text-white hover:border-gray-400 dark:hover:border-gray-600 transition-all"
+                              whileHover={{ scale: 1.03 }}
+                              whileTap={{ scale: 0.98 }}
+                            >
+                              <FiGithub className="w-4 h-4" />
+                              <span className="font-medium">View Code</span>
+                            </motion.a>
+                          )}
+                          
+                          {/* Live Demo */}
+                          {project.external && (
+                            <motion.a
+                              href={project.external}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="group flex items-center gap-2 px-4 py-2.5 bg-emerald-50 dark:bg-emerald-neon/10 border border-emerald-300 dark:border-emerald-neon/30 rounded-lg text-emerald-700 dark:text-emerald-neon hover:bg-emerald-100 dark:hover:bg-emerald-neon/20 hover:border-emerald-400 dark:hover:border-emerald-neon/50 transition-all"
+                              whileHover={{ scale: 1.03 }}
+                              whileTap={{ scale: 0.98 }}
+                            >
+                              <div className="w-2 h-2 bg-emerald-500 dark:bg-emerald-neon rounded-full animate-pulse" />
+                              <span className="font-medium">Live Demo</span>
+                            </motion.a>
                           )}
                         </div>
                       </div>
@@ -376,12 +404,19 @@ export default function ProjectsSection() {
                     viewport={{ once: true }}
                     whileHover={{ scale: 1.01 }}
                   >
-                    <div className="relative">
+                    <div className="relative flex items-center justify-center">
                       {/* Gradient Background */}
                       <div className={`absolute inset-0 bg-gradient-to-r ${project.color} opacity-20 blur-3xl`} />
                       
                       {/* Mockup */}
-                      {project.mockupType === 'phone' ? (
+                      {project.id === 1 && (project as any).screens ? (
+                        <DeviceMockupCarousel 
+                          screens={(project as any).screens} 
+                          title={project.title}
+                          autoPlay={true}
+                          interval={4000}
+                        />
+                      ) : project.mockupType === 'phone' ? (
                         <PhoneMockup image={project.image} title={project.title} projectId={project.id} />
                       ) : (
                         <LaptopMockup image={project.image} title={project.title} />
@@ -420,26 +455,32 @@ export default function ProjectsSection() {
                       <div className="p-3 rounded-lg bg-emerald-neon/10 text-emerald-neon group-hover:bg-emerald-neon group-hover:text-white transition-all duration-300">
                         {project.icon}
                       </div>
-                      <div className="flex gap-3">
+                      <div className="flex gap-2">
                         {project.github && (
-                          <a
+                          <motion.a
                             href={project.github}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="theme-text-secondary hover:text-emerald-neon transition-colors"
+                            className="p-2 bg-gray-800/50 hover:bg-gray-800 rounded-lg transition-all"
+                            whileHover={{ scale: 1.1 }}
+                            whileTap={{ scale: 0.95 }}
+                            title="View Code"
                           >
-                            <FiGithub className="w-5 h-5" />
-                          </a>
+                            <FiGithub className="w-4 h-4 text-gray-400 hover:text-white transition-colors" />
+                          </motion.a>
                         )}
                         {project.external && (
-                          <a
+                          <motion.a
                             href={project.external}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="theme-text-secondary hover:text-emerald-neon transition-colors"
+                            className="p-2 bg-emerald-neon/10 hover:bg-emerald-neon/20 rounded-lg transition-all"
+                            whileHover={{ scale: 1.1 }}
+                            whileTap={{ scale: 0.95 }}
+                            title="View Live"
                           >
-                            <FiExternalLink className="w-5 h-5" />
-                          </a>
+                            <FiExternalLink className="w-4 h-4 text-emerald-neon" />
+                          </motion.a>
                         )}
                       </div>
                     </div>
