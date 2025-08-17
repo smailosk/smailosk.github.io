@@ -28,11 +28,11 @@ const featuredProjects = [
     image: '/projects/taskflow.png',
     mockupType: 'phone',
     technologies: ['Flutter', 'Figma', 'Clean Architecture', 'BLoC', 'Firebase', 'UX/UI Design'],
-    github: 'https://github.com/smailosk/task-flow',
+    github: 'https://github.com/smailosk/task_flow',
     external: null,
     figmaPrototype: 'https://www.figma.com/embed?embed_host=share&url=https%3A%2F%2Fwww.figma.com%2Fproto%2FNDmF0csWXO3rGo1P0EpZPC%2FPA-Task-Management-App%3Fpage-id%3D0%253A1%26node-id%3D5-5272%26p%3Df%26viewport%3D471%252C-450%252C0.1%26t%3DLvpDHXzQqGmAYC0h-1%26scaling%3Dmin-zoom%26content-scaling%3Dfixed',
     demoOptions: {
-      apk: 'https://github.com/smailosk/task-flow/releases',
+      apk: 'https://github.com/smailosk/task_flow/releases',
       testflight: null,
       webDemo: null
     },
