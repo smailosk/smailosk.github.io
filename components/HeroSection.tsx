@@ -5,8 +5,11 @@ import Image from 'next/image'
 import { FiGithub, FiLinkedin, FiArrowDown, FiMapPin } from 'react-icons/fi'
 import { TypeAnimation } from 'react-type-animation'
 import CountUp from './CountUp'
+import { useIsMobile } from '@/hooks/useIsMobile'
 
 export default function HeroSection() {
+  const isMobile = useIsMobile()
+  
   return (
     <section className="min-h-screen flex items-center justify-center pt-20 relative theme-bg">
       {/* Static background gradient */}
@@ -50,22 +53,26 @@ export default function HeroSection() {
               transition={{ delay: 0.3, duration: 0.5 }}
               className="text-2xl md:text-3xl theme-text-secondary mb-6 h-10"
             >
-              <TypeAnimation
-                sequence={[
-                  'Flutter Developer',
-                  2000,
-                  'Mobile App Architect',
-                  2000,
-                  'Healthcare Tech Specialist',
-                  2000,
-                  'UI/UX Enthusiast',
-                  2000,
-                ]}
-                wrapper="span"
-                speed={50}
-                repeat={Infinity}
-                className="text-emerald-neon"
-              />
+              {isMobile ? (
+                <span className="text-emerald-neon">Flutter Developer</span>
+              ) : (
+                <TypeAnimation
+                  sequence={[
+                    'Flutter Developer',
+                    2000,
+                    'Mobile App Architect',
+                    2000,
+                    'Healthcare Tech Specialist',
+                    2000,
+                    'UI/UX Enthusiast',
+                    2000,
+                  ]}
+                  wrapper="span"
+                  speed={50}
+                  repeat={Infinity}
+                  className="text-emerald-neon"
+                />
+              )}
             </motion.div>
 
             {/* Description */}
@@ -183,18 +190,22 @@ export default function HeroSection() {
             className="relative"
           >
             <div className="relative w-full max-w-md mx-auto">
-              {/* Animated border */}
-              <div className="absolute inset-0 bg-gradient-emerald rounded-2xl animate-spin-slow opacity-75 blur-xl" />
+              {/* Animated border - disabled on mobile for performance */}
+              {!isMobile && (
+                <div className="absolute inset-0 bg-gradient-emerald rounded-2xl animate-spin-slow opacity-75 blur-xl" />
+              )}
               
               {/* Image container */}
               <div className="relative theme-card rounded-2xl overflow-hidden border-2 border-emerald-neon/20 hover:border-emerald-neon/50 transition-all duration-500">
                 <Image
                   src="/profile.png"
                   alt="Ismail Amor"
-                  width={500}
-                  height={500}
+                  width={isMobile ? 300 : 500}
+                  height={isMobile ? 300 : 500}
                   className="w-full h-auto object-cover"
-                  priority
+                  priority={!isMobile}
+                  quality={isMobile ? 60 : 85}
+                  sizes="(max-width: 768px) 300px, 500px"
                 />
                 
                 {/* Overlay gradient */}

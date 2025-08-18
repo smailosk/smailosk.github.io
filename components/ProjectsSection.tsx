@@ -6,10 +6,17 @@ import Image from 'next/image'
 import { FiGithub, FiExternalLink, FiFolder, FiCode, FiSmartphone, FiMonitor, FiUsers, FiAward, FiShoppingCart, FiHeart, FiX, FiPlay, FiArrowUpRight, FiDownload } from 'react-icons/fi'
 import { SiFlutter, SiFigma, SiFirebase, SiReact, SiShopify, SiDart, SiTypescript, SiJavascript, SiNodedotjs } from 'react-icons/si'
 import DeviceMockupCarousel from './DeviceMockupCarousel'
+import { useIsMobile } from '@/hooks/useIsMobile'
 
-// TaskFlow app screens organized by user flow - showing key screens only
-const taskFlowScreens = [
-  // Key screens to showcase the app
+// TaskFlow app screens - reduced for mobile performance
+const taskFlowScreensMobile = [
+  { name: 'Start Screen', image: '/taskflow-screens/Start-Page.png', category: 'auth' as const },
+  { name: 'Tasks Overview', image: '/taskflow-screens/Tasks-Page.png', category: 'main' as const },
+  { name: 'Projects', image: '/taskflow-screens/Project-Page.png', category: 'main' as const },
+  { name: 'Add New Task', image: '/taskflow-screens/Add-New-Task-Page.png', category: 'task' as const },
+]
+
+const taskFlowScreensDesktop = [
   { name: 'Start Screen', image: '/taskflow-screens/Start-Page.png', category: 'auth' as const },
   { name: 'Login', image: '/taskflow-screens/Login-Page.png', category: 'auth' as const },
   { name: 'Tasks Overview', image: '/taskflow-screens/Tasks-Page.png', category: 'main' as const },
@@ -46,8 +53,7 @@ const featuredProjects = [
       'Gesture-based controls and smart notifications'
     ],
     color: 'from-purple-500 to-pink-500',
-    icon: <FiFolder className="w-6 h-6" />,
-    screens: taskFlowScreens
+    icon: <FiFolder className="w-6 h-6" />
   },
   {
     id: 2,
@@ -239,6 +245,9 @@ export default function ProjectsSection() {
   const [selectedCategory, setSelectedCategory] = useState('All')
   const [showPrototypeModal, setShowPrototypeModal] = useState(false)
   const [currentPrototype, setCurrentPrototype] = useState<string | null>(null)
+  const isMobile = useIsMobile()
+  
+  const taskFlowScreens = isMobile ? taskFlowScreensMobile : taskFlowScreensDesktop
 
   const categories = ['All', 'Productivity', 'Social Impact', 'E-Commerce', 'Design', 'Healthcare']
 
@@ -409,12 +418,12 @@ export default function ProjectsSection() {
                       <div className={`absolute inset-0 bg-gradient-to-r ${project.color} opacity-20 blur-3xl`} />
                       
                       {/* Mockup */}
-                      {project.id === 1 && (project as any).screens ? (
+                      {project.id === 1 ? (
                         <DeviceMockupCarousel 
-                          screens={(project as any).screens} 
+                          screens={taskFlowScreens} 
                           title={project.title}
-                          autoPlay={true}
-                          interval={4000}
+                          autoPlay={!isMobile}
+                          interval={isMobile ? 5000 : 4000}
                         />
                       ) : project.mockupType === 'phone' ? (
                         <PhoneMockup image={project.image} title={project.title} projectId={project.id} />
