@@ -1,34 +1,43 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
-import { FiMenu, FiX, FiSun, FiMoon, FiCode } from 'react-icons/fi'
+import { motion, AnimatePresence } from 'motion/react'
+import { FiMenu, FiX, FiSun, FiMoon } from 'react-icons/fi'
 import { useTheme } from './ThemeProvider'
+import { useAccessibleDialog } from '@/hooks/useAccessibleDialog'
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [activeSection, setActiveSection] = useState('')
   const { theme, toggleTheme } = useTheme()
+  const { triggerRef: menuTriggerRef, closeButtonRef: menuCloseRef } = useAccessibleDialog(
+    isMobileMenuOpen,
+    () => setIsMobileMenuOpen(false),
+    'mobile-navigation'
+  )
 
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20)
       
       // Track active section for nav highlighting
-      const sections = ['about', 'experience', 'projects', 'skills', 'contact']
+      const sections = ['projects', 'about', 'experience', 'skills', 'contact']
       const scrollPosition = window.scrollY + 100
+      let nextActiveSection = ''
       
       for (const section of sections) {
         const element = document.getElementById(section)
         if (element) {
           const { offsetTop, offsetHeight } = element
           if (scrollPosition >= offsetTop && scrollPosition < offsetTop + offsetHeight) {
-            setActiveSection(section)
+            nextActiveSection = section
             break
           }
         }
       }
+
+      setActiveSection(nextActiveSection)
     }
     
     window.addEventListener('scroll', handleScroll)
@@ -37,9 +46,9 @@ export default function Navbar() {
   }, [])
 
   const navItems = [
+    { name: 'Projects', href: '#projects' },
     { name: 'About', href: '#about' },
     { name: 'Experience', href: '#experience' },
-    { name: 'Projects', href: '#projects' },
     { name: 'Skills', href: '#skills' },
     { name: 'Contact', href: '#contact' },
   ]
@@ -60,7 +69,8 @@ export default function Navbar() {
           <div className="flex items-center justify-between">
             {/* Logo */}
             <motion.a
-              href="#"
+              href="#home"
+              aria-label="Back to the top"
               className="text-3xl font-bold cursor-pointer"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
@@ -70,13 +80,14 @@ export default function Navbar() {
 
             {/* Desktop Navigation with improved styling */}
             <div className="hidden lg:flex items-center">
-              <div className="flex items-center bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm rounded-full px-2 py-2 shadow-lg border border-gray-200 dark:border-gray-700">
+              <div className="flex items-center bg-white/50 dark:bg-gray-800/50 backdrop-blur-xs rounded-full px-2 py-2 shadow-lg border border-gray-200 dark:border-gray-700">
                 {navItems.map((item, index) => {
                   const isActive = activeSection === item.href.substring(1)
                   return (
                     <motion.a
                       key={item.name}
                       href={item.href}
+                      aria-current={isActive ? 'location' : undefined}
                       className={`relative px-4 py-2 rounded-full transition-all duration-300 ${
                         isActive 
                           ? 'text-white font-semibold' 
@@ -91,7 +102,7 @@ export default function Navbar() {
                       {isActive && (
                         <motion.div
                           layoutId="activeSection"
-                          className="absolute inset-0 bg-gradient-to-r from-emerald-500 to-emerald-600 rounded-full shadow-lg"
+                          className="absolute inset-0 bg-linear-to-r from-emerald-500 to-emerald-600 rounded-full shadow-lg"
                           transition={{ type: "spring", stiffness: 380, damping: 30 }}
                         />
                       )}
@@ -109,11 +120,12 @@ export default function Navbar() {
               {/* Theme Toggle with better design */}
               <motion.button
                 onClick={toggleTheme}
+                aria-label={`Switch to ${theme === 'light' ? 'dark' : 'light'} theme`}
                 className="relative w-12 h-12 rounded-xl bg-gray-100 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 overflow-hidden group"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
-                <div className="absolute inset-0 bg-gradient-to-r from-emerald-400 to-emerald-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                <div className="absolute inset-0 bg-linear-to-r from-emerald-400 to-emerald-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                 <div className="relative w-full h-full flex items-center justify-center">
                   <AnimatePresence mode="wait">
                     {theme === 'light' ? (
@@ -143,26 +155,30 @@ export default function Navbar() {
 
               {/* CTA Button with gradient */}
               <motion.a
-                href="#contact"
-                className="hidden md:flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-emerald-500 to-emerald-600 text-white rounded-xl font-medium text-sm hover:shadow-lg hover:shadow-emerald-500/25 transition-all duration-300"
+                href="#contact-form"
+                className="hidden md:flex items-center gap-2 px-5 py-2.5 bg-linear-to-r from-emerald-500 to-emerald-600 text-white rounded-xl font-medium text-sm hover:shadow-lg hover:shadow-emerald-500/25 transition-all duration-300"
                 initial={{ opacity: 0, scale: 0.8 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ delay: 0.3 }}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
-                <span>Let's Talk</span>
+                <span>Start a project</span>
                 <div className="w-2 h-2 bg-white rounded-full animate-pulse" />
               </motion.a>
 
               {/* Mobile Menu Toggle with animation */}
               <motion.button
+                ref={menuTriggerRef}
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                aria-label={isMobileMenuOpen ? 'Close navigation menu' : 'Open navigation menu'}
+                aria-expanded={isMobileMenuOpen}
+                aria-controls="mobile-navigation"
                 className="lg:hidden relative w-12 h-12 rounded-xl bg-gray-100 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 flex items-center justify-center group"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
-                <div className="absolute inset-0 bg-gradient-to-r from-emerald-400 to-emerald-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-xl" />
+                <div className="absolute inset-0 bg-linear-to-r from-emerald-400 to-emerald-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-xl" />
                 <div className="relative">
                   <AnimatePresence mode="wait">
                     {isMobileMenuOpen ? (
@@ -200,16 +216,21 @@ export default function Navbar() {
           <>
             {/* Backdrop */}
             <motion.div
+              aria-hidden="true"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.3 }}
-              className="fixed inset-0 bg-black/60 backdrop-blur-sm z-40 lg:hidden"
+              className="fixed inset-0 bg-black/60 backdrop-blur-xs z-40 lg:hidden"
               onClick={() => setIsMobileMenuOpen(false)}
             />
             
             {/* Menu Panel */}
             <motion.div
+              id="mobile-navigation"
+              role="dialog"
+              aria-modal="true"
+              aria-label="Navigation menu"
               initial={{ x: '100%' }}
               animate={{ x: 0 }}
               exit={{ x: '100%' }}
@@ -219,7 +240,9 @@ export default function Navbar() {
               {/* Close button */}
               <div className="flex justify-end p-6">
                 <motion.button
+                  ref={menuCloseRef}
                   onClick={() => setIsMobileMenuOpen(false)}
+                  aria-label="Close navigation menu"
                   className="w-12 h-12 rounded-xl bg-gray-100 dark:bg-gray-800 flex items-center justify-center"
                   whileHover={{ scale: 1.1, rotate: 90 }}
                   whileTap={{ scale: 0.9 }}
@@ -237,10 +260,11 @@ export default function Navbar() {
                       <motion.a
                         key={item.name}
                         href={item.href}
+                        aria-current={isActive ? 'location' : undefined}
                         onClick={() => setIsMobileMenuOpen(false)}
                         className={`flex items-center gap-4 px-4 py-3 rounded-xl transition-all duration-300 ${
                           isActive
-                            ? 'bg-gradient-to-r from-emerald-500 to-emerald-600 text-white shadow-lg font-semibold'
+                            ? 'bg-linear-to-r from-emerald-500 to-emerald-600 text-white shadow-lg font-semibold'
                             : 'hover:bg-gray-100 dark:hover:bg-gray-800 theme-text'
                         }`}
                         initial={{ opacity: 0, x: 50 }}
@@ -259,16 +283,16 @@ export default function Navbar() {
 
                 {/* Mobile CTA */}
                 <motion.a
-                  href="#contact"
+                  href="#contact-form"
                   onClick={() => setIsMobileMenuOpen(false)}
-                  className="flex items-center justify-center gap-2 mt-8 w-full px-5 py-3 bg-gradient-to-r from-emerald-500 to-emerald-600 text-white rounded-xl font-medium"
+                  className="flex items-center justify-center gap-2 mt-8 w-full px-5 py-3 bg-linear-to-r from-emerald-500 to-emerald-600 text-white rounded-xl font-medium"
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.3 }}
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                 >
-                  <span>Let's Talk</span>
+                  <span>Start a project</span>
                   <div className="w-2 h-2 bg-white rounded-full animate-pulse" />
                 </motion.a>
 
@@ -278,6 +302,7 @@ export default function Navbar() {
                     <span className="text-sm theme-text-secondary">Theme</span>
                     <motion.button
                       onClick={toggleTheme}
+                      aria-label={`Switch to ${theme === 'light' ? 'dark' : 'light'} theme`}
                       className="relative w-12 h-12 rounded-xl bg-gray-100 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 flex items-center justify-center"
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}

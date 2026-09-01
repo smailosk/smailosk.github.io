@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { motion, AnimatePresence } from 'motion/react'
 import { FiArrowUp } from 'react-icons/fi'
 
 export default function BackToTop() {
@@ -36,7 +36,7 @@ export default function BackToTop() {
           exit={{ opacity: 0, scale: 0 }}
           transition={{ duration: 0.2 }}
           onClick={scrollToTop}
-          className="fixed bottom-8 right-8 z-40 w-12 h-12 bg-gradient-to-r from-emerald-500 to-emerald-600 text-white rounded-full shadow-lg hover:shadow-emerald-500/25 flex items-center justify-center group"
+          className="fixed bottom-8 right-8 z-40 w-12 h-12 bg-linear-to-r from-emerald-500 to-emerald-600 text-white rounded-full shadow-lg hover:shadow-emerald-500/25 flex items-center justify-center group"
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.9 }}
           aria-label="Back to top"

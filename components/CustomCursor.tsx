@@ -47,6 +47,7 @@ export default function CustomCursor() {
     }
 
     if (!isMobile) {
+      document.documentElement.classList.add('custom-cursor-enabled')
       document.addEventListener('mousemove', handleMouseMove)
       document.addEventListener('mouseenter', handleMouseEnter)
       document.addEventListener('mouseleave', handleMouseLeave)
@@ -55,6 +56,7 @@ export default function CustomCursor() {
     }
 
     return () => {
+      document.documentElement.classList.remove('custom-cursor-enabled')
       document.removeEventListener('mousemove', handleMouseMove)
       document.removeEventListener('mouseenter', handleMouseEnter)
       document.removeEventListener('mouseleave', handleMouseLeave)
@@ -70,6 +72,7 @@ export default function CustomCursor() {
     <>
       {/* Main cursor - follows instantly */}
       <div
+        aria-hidden="true"
         className="custom-cursor"
         style={{
           position: 'fixed',
@@ -91,6 +94,7 @@ export default function CustomCursor() {
       
       {/* Center dot - follows instantly */}
       <div
+        aria-hidden="true"
         className="custom-cursor-dot"
         style={{
           position: 'fixed',

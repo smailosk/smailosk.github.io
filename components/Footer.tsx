@@ -1,6 +1,5 @@
 'use client'
 
-import { motion } from 'framer-motion'
 import { FiGithub, FiLinkedin } from 'react-icons/fi'
 
 export default function Footer() {
@@ -31,7 +30,7 @@ export default function Footer() {
 
           {/* Copyright */}
           <p className="text-sm theme-text-secondary">
-            © 2025 Ismail Amor. All rights reserved.
+            © {new Date().getFullYear()} Ismail Amor. All rights reserved.
           </p>
         </div>
       </div>

@@ -1,40 +1,31 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useCallback, useSyncExternalStore } from 'react'
 
 export function useIsMobile(breakpoint = 768) {
-  const [isMobile, setIsMobile] = useState(false)
+  const query = `(max-width: ${breakpoint - 0.02}px)`
+  const subscribe = useCallback((onStoreChange: () => void) => {
+    const mediaQuery = window.matchMedia(query)
+    mediaQuery.addEventListener('change', onStoreChange)
+    return () => mediaQuery.removeEventListener('change', onStoreChange)
+  }, [query])
+  const getSnapshot = useCallback(() => window.matchMedia(query).matches, [query])
 
-  useEffect(() => {
-    const checkIsMobile = () => {
-      setIsMobile(window.innerWidth < breakpoint)
-    }
+  return useSyncExternalStore(subscribe, getSnapshot, () => false)
+}
 
-    // Check on mount
-    checkIsMobile()
+const reducedMotionQuery = '(prefers-reduced-motion: reduce)'
 
-    // Check on resize
-    window.addEventListener('resize', checkIsMobile)
-    return () => window.removeEventListener('resize', checkIsMobile)
-  }, [breakpoint])
+function subscribeToReducedMotion(onStoreChange: () => void) {
+  const mediaQuery = window.matchMedia(reducedMotionQuery)
+  mediaQuery.addEventListener('change', onStoreChange)
+  return () => mediaQuery.removeEventListener('change', onStoreChange)
+}
 
-  return isMobile
+function getReducedMotionSnapshot() {
+  return window.matchMedia(reducedMotionQuery).matches
 }
 
 export function useReducedMotion() {
-  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false)
-
-  useEffect(() => {
-    const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)')
-    setPrefersReducedMotion(mediaQuery.matches)
-
-    const handleChange = (e: MediaQueryListEvent) => {
-      setPrefersReducedMotion(e.matches)
-    }
-
-    mediaQuery.addEventListener('change', handleChange)
-    return () => mediaQuery.removeEventListener('change', handleChange)
-  }, [])
-
-  return prefersReducedMotion
+  return useSyncExternalStore(subscribeToReducedMotion, getReducedMotionSnapshot, () => false)
 }

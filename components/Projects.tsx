@@ -1,6 +1,6 @@
 'use client'
 
-import { motion } from 'framer-motion'
+import { motion } from 'motion/react'
 import { FiExternalLink, FiGithub, FiFolder } from 'react-icons/fi'
 
 export default function Projects() {
@@ -88,7 +88,7 @@ export default function Projects() {
                 className={`bento-item group ${index === 0 ? 'md:col-span-2' : ''}`}
               >
                 {/* Gradient Bar */}
-                <div className={`h-1 w-full bg-gradient-to-r ${project.gradient} rounded-full mb-6 opacity-60 group-hover:opacity-100 transition-opacity`}></div>
+                <div className={`h-1 w-full bg-linear-to-r ${project.gradient} rounded-full mb-6 opacity-60 group-hover:opacity-100 transition-opacity`}></div>
                 
                 <div className="flex justify-between items-start mb-4">
                   <FiFolder className="text-brand-primary w-10 h-10" />

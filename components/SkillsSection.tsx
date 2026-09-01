@@ -1,17 +1,32 @@
 'use client'
 
-import { motion } from 'framer-motion'
+import type { ReactNode } from 'react'
+import { motion } from 'motion/react'
 import { 
   SiFlutter, SiDart, SiFirebase, SiReact, SiTypescript, SiJavascript, 
-  SiNodedotjs, SiHtml5, SiCss3, SiFigma, SiGit, SiDocker, SiShopify,
-  SiAdobephotoshop, SiAdobexd, SiRubyonrails, SiExpress, SiKotlin,
-  SiCplusplus, SiPython
+  SiNodedotjs, SiHtml5, SiCss, SiFigma, SiGit, SiDocker,
+  SiRubyonrails, SiExpress, SiKotlin,
+  SiPython
 } from 'react-icons/si'
-import { FiCode, FiSmartphone, FiLayout, FiDatabase, FiTool, FiGlobe } from 'react-icons/fi'
+import { FiCode, FiCpu, FiDatabase, FiGitBranch, FiGlobe, FiImage, FiLayout, FiLink, FiPenTool, FiSmartphone, FiZap } from 'react-icons/fi'
 import { TbBrandCpp } from 'react-icons/tb'
 import { DiJava } from 'react-icons/di'
 
-const skillCategories = [
+type SkillCategory = {
+  id: number
+  title: string
+  icon: ReactNode
+  color: string
+  summary?: string
+  skills: Array<{
+    name: string
+    icon: ReactNode
+    level?: number
+    years?: string
+  }>
+}
+
+const skillCategories: SkillCategory[] = [
   {
     id: 1,
     title: 'Mobile Development',
@@ -35,8 +50,21 @@ const skillCategories = [
       { name: 'JavaScript', icon: <SiJavascript />, level: 85, years: '4+' },
       { name: 'TypeScript', icon: <SiTypescript />, level: 70, years: '1+' },
       { name: 'HTML5', icon: <SiHtml5 />, level: 90, years: '5+' },
-      { name: 'CSS3', icon: <SiCss3 />, level: 85, years: '5+' },
+      { name: 'CSS3', icon: <SiCss />, level: 85, years: '5+' },
       { name: 'Node.js', icon: <SiNodedotjs />, level: 70, years: '2+' },
+    ]
+  },
+  {
+    id: 6,
+    title: 'AI Products & Integrations',
+    icon: <FiCpu className="w-5 h-5" />,
+    color: 'from-cyan-500 to-violet-500',
+    summary: 'AI-powered features for new products and useful integrations for existing web and mobile apps.',
+    skills: [
+      { name: 'AI App Integration', icon: <FiLink /> },
+      { name: 'LLM/API-Powered Features', icon: <FiCode /> },
+      { name: 'Prompt & Workflow Design', icon: <FiGitBranch /> },
+      { name: 'Intelligent Automation', icon: <FiZap /> },
     ]
   },
   {
@@ -46,8 +74,8 @@ const skillCategories = [
     color: 'from-orange-500 to-red-500',
     skills: [
       { name: 'Figma', icon: <SiFigma />, level: 85, years: '2+' },
-      { name: 'Adobe XD', icon: <SiAdobexd />, level: 75, years: '2+' },
-      { name: 'Photoshop', icon: <SiAdobephotoshop />, level: 80, years: '3+' },
+      { name: 'Adobe XD', icon: <FiPenTool />, level: 75, years: '2+' },
+      { name: 'Photoshop', icon: <FiImage />, level: 80, years: '3+' },
       { name: 'UX Research', icon: <FiLayout />, level: 75, years: '1+' },
       { name: 'Prototyping', icon: <FiLayout />, level: 80, years: '2+' },
     ]
@@ -102,7 +130,7 @@ export default function SkillsSection() {
               Skills & <span className="gradient-text">Technologies</span>
             </h2>
             <p className="text-lg theme-text-secondary max-w-2xl mx-auto">
-              A comprehensive toolkit built over years of hands-on development experience
+              A practical toolkit for shipping dependable web, mobile, and AI-enabled products
             </p>
           </div>
 
@@ -124,7 +152,7 @@ export default function SkillsSection() {
                   transition={{ duration: 0.3, delay: index * 0.1 }}
                   viewport={{ once: true }}
                   whileHover={{ scale: 1.1, rotate: 5 }}
-                  className="px-6 py-3 bg-gradient-to-r from-emerald-500/10 to-emerald-600/10 border border-emerald-neon/30 rounded-full"
+                  className="px-6 py-3 bg-linear-to-r from-emerald-500/10 to-emerald-600/10 border border-emerald-neon/30 rounded-full"
                 >
                   <span className="text-emerald-neon font-medium">{skill}</span>
                 </motion.div>
@@ -132,7 +160,7 @@ export default function SkillsSection() {
             </motion.div>
 
             {/* Modern Grid Layout */}
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {skillCategories.map((category, categoryIndex) => (
                 <motion.div
                   key={category.id}
@@ -150,11 +178,15 @@ export default function SkillsSection() {
                   <div className="theme-card rounded-2xl p-6 h-full theme-border border hover:border-emerald-neon/50 transition-all duration-300">
                     {/* Category Header */}
                     <div className="flex items-center gap-3 mb-6">
-                      <div className={`p-2 rounded-lg bg-gradient-to-r ${category.color} text-white`}>
+                      <div aria-hidden="true" className={`p-2 rounded-lg bg-linear-to-r ${category.color} text-white`}>
                         {category.icon}
                       </div>
                       <h3 className="text-lg font-bold theme-text">{category.title}</h3>
                     </div>
+
+                    {category.summary && (
+                      <p className="-mt-2 mb-6 text-sm leading-6 theme-text-secondary">{category.summary}</p>
+                    )}
 
                     {/* Skills List - Simple and Clean */}
                     <div className="space-y-4">
@@ -174,26 +206,28 @@ export default function SkillsSection() {
                         >
                           <div className="flex items-center justify-between mb-2">
                             <div className="flex items-center gap-2">
-                              <span className="text-emerald-neon text-lg">{skill.icon}</span>
+                              <span aria-hidden="true" className="text-emerald-neon text-lg">{skill.icon}</span>
                               <span className="theme-text font-medium">{skill.name}</span>
                             </div>
-                            <span className="text-xs theme-text-muted">{skill.years} years</span>
+                            {skill.years && <span className="text-xs theme-text-muted">{skill.years} years</span>}
                           </div>
                           
                           {/* Simple Progress Bar */}
-                          <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-1.5 overflow-hidden">
-                            <motion.div
-                              className="h-full bg-gradient-to-r from-emerald-400 to-emerald-600 rounded-full"
-                              initial={{ width: 0 }}
-                              whileInView={{ width: `${skill.level}%` }}
-                              transition={{ 
-                                duration: 1.2, 
-                                delay: categoryIndex * 0.15 + skillIndex * 0.1 + 0.3,
-                                ease: "easeOut"
-                              }}
-                              viewport={{ once: true }}
-                            />
-                          </div>
+                          {typeof skill.level === 'number' && (
+                            <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-1.5 overflow-hidden">
+                              <motion.div
+                                className="h-full bg-linear-to-r from-emerald-400 to-emerald-600 rounded-full"
+                                initial={{ width: 0 }}
+                                whileInView={{ width: `${skill.level}%` }}
+                                transition={{
+                                  duration: 1.2,
+                                  delay: categoryIndex * 0.15 + skillIndex * 0.1 + 0.3,
+                                  ease: "easeOut"
+                                }}
+                                viewport={{ once: true }}
+                              />
+                            </div>
+                          )}
                         </motion.div>
                       ))}
                     </div>

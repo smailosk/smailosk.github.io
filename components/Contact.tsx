@@ -1,6 +1,6 @@
 'use client'
 
-import { motion } from 'framer-motion'
+import { motion } from 'motion/react'
 import { useState } from 'react'
 import { FiSend, FiCalendar, FiClock, FiVideo, FiCheck, FiAlertCircle } from 'react-icons/fi'
 
@@ -52,7 +52,7 @@ export default function Contact() {
       } else {
         setSubmitStatus('error')
       }
-    } catch (error) {
+    } catch {
       setSubmitStatus('error')
     } finally {
       setIsSubmitting(false)
@@ -76,11 +76,11 @@ export default function Contact() {
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold mb-4">
               <span className="text-brand-primary font-mono text-xl mr-2">05.</span>
-              Let's Work Together
+              Let’s Work Together
             </h2>
             <p className="text-lg text-light-text-secondary dark:text-dark-text-secondary max-w-2xl mx-auto">
-              I'm currently taking on select freelance projects. Whether you need a mobile app, 
-              consultation, or just want to discuss your ideas, I'd love to hear from you.
+              I’m currently taking on select freelance projects. Whether you need a mobile app,
+              consultation, or just want to discuss your ideas, I’d love to hear from you.
             </p>
           </div>
 
@@ -106,7 +106,7 @@ export default function Contact() {
                       value={formData.name}
                       onChange={handleChange}
                       required
-                      className="w-full px-4 py-2 bg-light-bg dark:bg-dark-bg border border-light-border dark:border-dark-border rounded-lg focus:border-brand-primary focus:outline-none transition-colors"
+                      className="w-full px-4 py-2 bg-light-bg dark:bg-dark-bg border border-light-border dark:border-dark-border rounded-lg focus:border-brand-primary focus:outline-hidden transition-colors"
                       placeholder="John Doe"
                     />
                   </div>
@@ -121,7 +121,7 @@ export default function Contact() {
                       value={formData.email}
                       onChange={handleChange}
                       required
-                      className="w-full px-4 py-2 bg-light-bg dark:bg-dark-bg border border-light-border dark:border-dark-border rounded-lg focus:border-brand-primary focus:outline-none transition-colors"
+                      className="w-full px-4 py-2 bg-light-bg dark:bg-dark-bg border border-light-border dark:border-dark-border rounded-lg focus:border-brand-primary focus:outline-hidden transition-colors"
                       placeholder="john@company.com"
                     />
                   </div>
@@ -136,7 +136,7 @@ export default function Contact() {
                     name="company"
                     value={formData.company}
                     onChange={handleChange}
-                    className="w-full px-4 py-2 bg-light-bg dark:bg-dark-bg border border-light-border dark:border-dark-border rounded-lg focus:border-brand-primary focus:outline-none transition-colors"
+                    className="w-full px-4 py-2 bg-light-bg dark:bg-dark-bg border border-light-border dark:border-dark-border rounded-lg focus:border-brand-primary focus:outline-hidden transition-colors"
                     placeholder="Acme Inc. (optional)"
                   />
                 </div>
@@ -150,7 +150,7 @@ export default function Contact() {
                       name="projectType"
                       value={formData.projectType}
                       onChange={handleChange}
-                      className="w-full px-4 py-2 bg-light-bg dark:bg-dark-bg border border-light-border dark:border-dark-border rounded-lg focus:border-brand-primary focus:outline-none transition-colors"
+                      className="w-full px-4 py-2 bg-light-bg dark:bg-dark-bg border border-light-border dark:border-dark-border rounded-lg focus:border-brand-primary focus:outline-hidden transition-colors"
                     >
                       <option value="mobile-app">Mobile App</option>
                       <option value="web-app">Web Application</option>
@@ -168,7 +168,7 @@ export default function Contact() {
                       name="budget"
                       value={formData.budget}
                       onChange={handleChange}
-                      className="w-full px-4 py-2 bg-light-bg dark:bg-dark-bg border border-light-border dark:border-dark-border rounded-lg focus:border-brand-primary focus:outline-none transition-colors"
+                      className="w-full px-4 py-2 bg-light-bg dark:bg-dark-bg border border-light-border dark:border-dark-border rounded-lg focus:border-brand-primary focus:outline-hidden transition-colors"
                     >
                       <option value="<5k">Less than €5k</option>
                       <option value="5k-10k">€5k - €10k</option>
@@ -189,7 +189,7 @@ export default function Contact() {
                     onChange={handleChange}
                     required
                     rows={4}
-                    className="w-full px-4 py-2 bg-light-bg dark:bg-dark-bg border border-light-border dark:border-dark-border rounded-lg focus:border-brand-primary focus:outline-none transition-colors resize-none"
+                    className="w-full px-4 py-2 bg-light-bg dark:bg-dark-bg border border-light-border dark:border-dark-border rounded-lg focus:border-brand-primary focus:outline-hidden transition-colors resize-none"
                     placeholder="Tell me about your project, timeline, and any specific requirements..."
                   />
                 </div>
@@ -221,7 +221,7 @@ export default function Contact() {
                     className="flex items-center gap-2 text-green-600 dark:text-green-400 bg-green-500/10 px-4 py-2 rounded-lg"
                   >
                     <FiCheck />
-                    <span>Message sent successfully! I'll get back to you soon.</span>
+                    <span>Message sent successfully! I’ll get back to you soon.</span>
                   </motion.div>
                 )}
                 

@@ -1,26 +1,21 @@
 'use client'
 
-import { useEffect, useState } from 'react'
-import { motion } from 'framer-motion'
+import { motion } from 'motion/react'
+import { useReducedMotion } from '@/hooks/useIsMobile'
+
+const particles = Array.from({ length: 20 }, (_, index) => ({
+  id: index,
+  x: (index * 47) % 100,
+  delay: (index * 13) % 25,
+}))
 
 export default function ParticlesBackground() {
-  const [particles, setParticles] = useState<Array<{ id: number; x: number; delay: number }>>([])
+  const prefersReducedMotion = useReducedMotion()
 
-  useEffect(() => {
-    const particleArray = []
-    // Reduced particles for better performance
-    for (let i = 0; i < 20; i++) {
-      particleArray.push({
-        id: i,
-        x: Math.random() * 100,
-        delay: Math.random() * 25,
-      })
-    }
-    setParticles(particleArray)
-  }, [])
+  if (prefersReducedMotion) return null
 
   return (
-    <div className="fixed inset-0 overflow-hidden pointer-events-none">
+    <div className="fixed inset-0 overflow-hidden pointer-events-none" aria-hidden="true">
       {/* Animated gradient blobs */}
       <div className="absolute top-0 -left-4 w-96 h-96 bg-emerald-neon/20 rounded-full mix-blend-screen filter blur-3xl opacity-20 animate-float"></div>
       <div className="absolute top-1/2 -right-4 w-96 h-96 bg-emerald-500/20 rounded-full mix-blend-screen filter blur-3xl opacity-20 animate-float-slow animation-delay-400"></div>
