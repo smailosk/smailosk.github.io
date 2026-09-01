@@ -1,7 +1,7 @@
 'use client'
 
-import { motion } from 'framer-motion'
-import { FiCode, FiUsers, FiTarget, FiDownload } from 'react-icons/fi'
+import { motion } from 'motion/react'
+import { FiCode, FiUsers, FiTarget, FiDownload, FiCpu } from 'react-icons/fi'
 
 export default function AboutSection() {
   const highlights = [
@@ -19,6 +19,11 @@ export default function AboutSection() {
       icon: <FiTarget className="w-6 h-6" />, 
       title: 'Goal Oriented', 
       description: 'Focused on delivering value to end users' 
+    },
+    {
+      icon: <FiCpu className="w-6 h-6" />,
+      title: 'AI Product Development',
+      description: 'From an idea or requirements, I build a tailored AI-powered web or mobile product—or add useful AI features to an existing app.'
     },
   ]
 
@@ -53,20 +58,19 @@ export default function AboutSection() {
               className="text-center mb-12"
             >
               <p className="text-xl theme-text-secondary leading-relaxed mb-6">
-                I'm a <span className="text-emerald-neon font-semibold">Flutter Developer</span> with{' '}
-                <span className="text-emerald-neon font-semibold">3+ years</span> of experience building 
-                cross-platform mobile applications. I transform ideas into polished, 
-                user-friendly apps that work seamlessly on both iOS and Android.
+                I’m a <span className="text-emerald-neon font-semibold">Flutter Developer</span> with{' '}
+                professional experience building cross-platform mobile applications. I turn product ideas and
+                complex requirements into polished, user-friendly apps for iOS and Android.
               </p>
               
               <p className="text-lg theme-text-secondary leading-relaxed">
                 Currently working at <span className="text-emerald-neon font-semibold">Famedly GmbH</span>, 
-                developing secure healthcare communication solutions used by thousands of medical professionals across Germany.
+                contributing to secure healthcare communication across mobile platforms.
               </p>
             </motion.div>
 
             {/* What I Do Best */}
-            <div className="grid md:grid-cols-3 gap-6 mb-12">
+            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
               {highlights.map((item, index) => (
                 <motion.div
                   key={item.title}
@@ -121,7 +125,7 @@ export default function AboutSection() {
               <motion.a
                 href="/Ismail_Amor_CV.pdf"
                 download="Ismail_Amor_Flutter_Developer_CV.pdf"
-                className="inline-flex items-center gap-2 px-8 py-3 bg-gradient-to-r from-emerald-500 to-emerald-600 text-white rounded-xl font-medium hover:shadow-lg hover:shadow-emerald-500/25 transition-all duration-300"
+                className="inline-flex items-center gap-2 px-8 py-3 bg-linear-to-r from-emerald-500 to-emerald-600 text-white rounded-xl font-medium hover:shadow-lg hover:shadow-emerald-500/25 transition-all duration-300"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >

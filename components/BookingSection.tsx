@@ -1,7 +1,7 @@
 'use client'
 
-import { motion } from 'framer-motion'
-import { FiCalendar, FiClock, FiMail, FiPhone } from 'react-icons/fi'
+import { motion } from 'motion/react'
+import { FiCalendar, FiClock, FiMail } from 'react-icons/fi'
 
 export default function BookingSection() {
   return (

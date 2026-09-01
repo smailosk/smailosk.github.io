@@ -1,7 +1,6 @@
 'use client'
 
-import { motion } from 'framer-motion'
-import Image from 'next/image'
+import { motion } from 'motion/react'
 
 export default function About() {
   return (
@@ -84,7 +83,7 @@ export default function About() {
                 transition={{ type: "spring", stiffness: 300 }}
               >
                 {/* Placeholder for profile image */}
-                <div className="absolute inset-0 bg-gradient-to-br from-brand-primary to-brand-secondary rounded-2xl opacity-10 group-hover:opacity-20 transition-opacity"></div>
+                <div className="absolute inset-0 bg-linear-to-br from-brand-primary to-brand-secondary rounded-2xl opacity-10 group-hover:opacity-20 transition-opacity"></div>
                 <div className="relative w-full h-full bg-light-surface dark:bg-dark-surface rounded-2xl border-2 border-brand-primary/20 group-hover:border-brand-primary/40 transition-colors flex items-center justify-center">
                   <div className="text-center">
                     <div className="text-6xl mb-4">👨‍💻</div>

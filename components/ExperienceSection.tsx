@@ -1,8 +1,8 @@
 'use client'
 
 import { useState } from 'react'
-import { motion } from 'framer-motion'
-import { FiBriefcase, FiCalendar, FiMapPin, FiExternalLink, FiCode, FiLayout, FiUsers } from 'react-icons/fi'
+import { motion } from 'motion/react'
+import { FiBriefcase, FiCalendar, FiMapPin, FiExternalLink } from 'react-icons/fi'
 
 const experiences = [
   {
@@ -14,10 +14,10 @@ const experiences = [
     location: 'Remote',
     current: true,
     description: [
-      'Contributing to Germany\'s first gematik-certified healthcare messenger for secure medical communication',
-      'Implementing end-to-end encryption features using Matrix protocol for HIPAA-compliant messaging',
-      'Developing real-time communication features for 1000+ healthcare professionals',
-      'Ensuring 99.9% uptime and optimal performance across iOS and Android platforms'
+      'Contributing to a gematik-certified healthcare messenger for secure medical communication',
+      'Implementing end-to-end encryption features using the Matrix protocol',
+      'Developing real-time communication features for healthcare professionals',
+      'Improving performance and reliability across iOS and Android platforms'
     ],
     skills: ['Flutter', 'Dart', 'Matrix SDK', 'E2E Encryption', 'WebRTC', 'Healthcare Tech'],
     color: 'from-blue-500 to-cyan-500'
@@ -129,7 +129,7 @@ export default function ExperienceSection() {
           <div className="text-center mb-16">
             <p className="text-emerald-neon font-mono text-sm mb-2">{'<Experience />'}</p>
             <h2 className="text-4xl md:text-5xl font-bold mb-4">
-              Where I've <span className="gradient-text">Worked</span>
+              Where I’ve <span className="gradient-text">Worked</span>
             </h2>
             <p className="text-lg theme-text-secondary max-w-2xl mx-auto">
               My professional journey through various roles in software development, from healthcare tech to e-commerce
@@ -139,7 +139,7 @@ export default function ExperienceSection() {
           {/* Timeline View for Desktop */}
           <div className="hidden lg:block relative">
             {/* Central Timeline Line */}
-            <div className="absolute left-1/2 transform -translate-x-1/2 w-0.5 h-full bg-gradient-to-b from-emerald-neon via-emerald-500 to-emerald-neon opacity-30" />
+            <div className="absolute left-1/2 transform -translate-x-1/2 w-0.5 h-full bg-linear-to-b from-emerald-neon via-emerald-500 to-emerald-neon opacity-30" />
 
             {experiences.map((exp, index) => (
               <motion.div
@@ -182,7 +182,7 @@ export default function ExperienceSection() {
                 >
                   <div className="theme-card rounded-2xl p-6 theme-border border hover:border-emerald-neon/50 transition-all duration-300 hover:shadow-xl hover:shadow-emerald-neon/10">
                     {/* Header with gradient line */}
-                    <div className={`h-1 w-full bg-gradient-to-r ${exp.color} rounded-full mb-4 opacity-60 group-hover:opacity-100 transition-opacity`} />
+                    <div className={`h-1 w-full bg-linear-to-r ${exp.color} rounded-full mb-4 opacity-60 group-hover:opacity-100 transition-opacity`} />
                     
                     <div className={`flex items-start gap-4 mb-4 ${index % 2 === 0 ? 'flex-row-reverse' : ''}`}>
                       <div className="flex-1">
@@ -288,7 +288,7 @@ export default function ExperienceSection() {
               transition={{ duration: 0.3 }}
               className="theme-card rounded-2xl p-6 theme-border border"
             >
-              <div className={`h-1 w-full bg-gradient-to-r ${experiences[selectedExp].color} rounded-full mb-6`} />
+              <div className={`h-1 w-full bg-linear-to-r ${experiences[selectedExp].color} rounded-full mb-6`} />
               
               <div className="mb-4">
                 <h3 className="text-2xl font-bold theme-text mb-2">

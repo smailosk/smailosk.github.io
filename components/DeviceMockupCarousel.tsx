@@ -1,9 +1,10 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { motion, AnimatePresence } from 'motion/react'
 import Image from 'next/image'
 import { FiChevronLeft, FiChevronRight, FiPlay, FiPause } from 'react-icons/fi'
+import { useReducedMotion } from '@/hooks/useIsMobile'
 
 interface Screen {
   name: string
@@ -24,21 +25,25 @@ export default function DeviceMockupCarousel({
   autoPlay = true,
   interval = 3000 
 }: DeviceMockupCarouselProps) {
+  const prefersReducedMotion = useReducedMotion()
   const [currentIndex, setCurrentIndex] = useState(0)
   const [isPlaying, setIsPlaying] = useState(autoPlay)
   const [touchStart, setTouchStart] = useState(0)
   const [touchEnd, setTouchEnd] = useState(0)
 
+  const carouselIsPlaying = isPlaying && !prefersReducedMotion
+  const safeIndex = currentIndex % screens.length
+
   // Auto-play functionality
   useEffect(() => {
-    if (!isPlaying) return
+    if (!carouselIsPlaying) return
 
     const timer = setInterval(() => {
       setCurrentIndex((prev) => (prev + 1) % screens.length)
     }, interval)
 
     return () => clearInterval(timer)
-  }, [isPlaying, screens.length, interval])
+  }, [carouselIsPlaying, screens.length, interval])
 
   const handleNext = () => {
     setCurrentIndex((prev) => (prev + 1) % screens.length)
@@ -85,7 +90,11 @@ export default function DeviceMockupCarousel({
   }
 
   return (
-    <div className="relative mx-auto" style={{ width: '320px', height: '680px' }}>
+    <div
+      role="region"
+      aria-label={`${title} screen gallery`}
+      className="relative mx-auto w-[280px] h-[620px] sm:w-[320px] sm:h-[680px]"
+    >
       {/* Phone Frame */}
       <div className="absolute inset-0 bg-gray-900 rounded-[3.5rem] shadow-2xl">
         {/* Notch */}
@@ -97,10 +106,10 @@ export default function DeviceMockupCarousel({
           <div className="absolute top-0 inset-x-0 h-8 bg-black/80 backdrop-blur z-10 flex items-center justify-between px-8">
             <span className="text-white text-xs font-medium">9:41</span>
             <div className="flex items-center gap-1">
-              <div className="w-4 h-3 border border-white/60 rounded-sm">
-                <div className="w-2 h-1.5 bg-white rounded-sm m-0.5" />
+              <div className="w-4 h-3 border border-white/60 rounded-xs">
+                <div className="w-2 h-1.5 bg-white rounded-xs m-0.5" />
               </div>
-              <div className="w-1 h-3 bg-white/60 rounded-sm" />
+              <div className="w-1 h-3 bg-white/60 rounded-xs" />
             </div>
           </div>
 
@@ -108,7 +117,7 @@ export default function DeviceMockupCarousel({
           <div className="absolute inset-0 top-8">
             <AnimatePresence mode="wait">
               <motion.div
-                key={currentIndex}
+                key={safeIndex}
                 initial={{ opacity: 0, x: 100 }}
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: -100 }}
@@ -119,26 +128,24 @@ export default function DeviceMockupCarousel({
                 onTouchEnd={handleTouchEnd}
               >
                 {/* Category Gradient Background */}
-                <div className={`absolute inset-0 bg-gradient-to-br ${getCategoryColor(screens[currentIndex].category)} opacity-10`} />
+                <div className={`absolute inset-0 bg-linear-to-br ${getCategoryColor(screens[safeIndex].category)} opacity-10`} />
                 
                 {/* Screen Image */}
                 <div className="relative w-full h-full bg-gray-50">
                   <Image
-                    src={screens[currentIndex].image}
-                    alt={screens[currentIndex].name}
+                    src={screens[safeIndex].image}
+                    alt={screens[safeIndex].name}
                     fill
                     className="object-cover"
-                    priority={currentIndex === 0}
-                    loading={currentIndex === 0 ? "eager" : "lazy"}
-                    quality={75}
+                    preload={safeIndex === 0}
                     sizes="(max-width: 640px) 280px, 320px"
                   />
                 </div>
 
                 {/* Screen Name Overlay */}
-                <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-4">
-                  <p className="text-white text-sm font-medium">{screens[currentIndex].name}</p>
-                  <p className="text-white/60 text-xs capitalize">{screens[currentIndex].category}</p>
+                <div className="absolute bottom-0 left-0 right-0 bg-linear-to-t from-black/80 to-transparent p-4">
+                  <p className="text-white text-sm font-medium">{screens[safeIndex].name}</p>
+                  <p className="text-white/60 text-xs capitalize">{screens[safeIndex].category}</p>
                 </div>
               </motion.div>
             </AnimatePresence>
@@ -172,10 +179,15 @@ export default function DeviceMockupCarousel({
         {/* Play/Pause Button */}
         <button
           onClick={() => setIsPlaying(!isPlaying)}
+          disabled={prefersReducedMotion}
           className="p-3 bg-emerald-neon/10 dark:bg-emerald-neon/20 hover:bg-emerald-neon/20 dark:hover:bg-emerald-neon/30 rounded-full transition-all backdrop-blur border border-emerald-200 dark:border-transparent"
-          aria-label={isPlaying ? 'Pause' : 'Play'}
+          aria-label={prefersReducedMotion
+            ? 'Automatic screen rotation disabled by reduced-motion preference'
+            : carouselIsPlaying
+              ? 'Pause automatic screen rotation'
+              : 'Play automatic screen rotation'}
         >
-          {isPlaying ? (
+          {carouselIsPlaying ? (
             <FiPause className="w-5 h-5 text-emerald-neon" />
           ) : (
             <FiPlay className="w-5 h-5 text-emerald-neon" />
@@ -202,11 +214,12 @@ export default function DeviceMockupCarousel({
               setIsPlaying(false)
             }}
             className={`transition-all duration-300 ${
-              index === currentIndex
+              index === safeIndex
                 ? 'w-8 h-2 bg-emerald-neon rounded-full'
                 : 'w-2 h-2 bg-gray-400 dark:bg-white/30 hover:bg-gray-500 dark:hover:bg-white/50 rounded-full'
             }`}
             aria-label={`Go to screen ${index + 1}`}
+            aria-current={index === safeIndex ? 'true' : undefined}
           />
         ))}
       </div>
